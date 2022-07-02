@@ -1,38 +1,27 @@
 import random
 
-player = input("Please enter player name: ")
+name = input("Welcome to Rock-Paper-Scissors.\n\nPlease enter player name: ")
+
+game = {'R': 'Rock', 'P': 'Paper', 'S': 'Scissors'}
+
+opt = list(game)
+
+# Input loop
 while True:
+    user = input('\Choose "R" for rock, "P" for paper, "S" for scissors: ')
+    CPU = random.choice(opt)
 
-    user_action = input('Enter a choice (rock,paper,scissors): ')
-    possible_actions = ["rock", "paper", "scissors"]
-    computer_action = random.choice(possible_actions)
-    print(f"\n{player}({user_action}) : CPU({computer_action}).\n")
+    if user not in opt:
+        print("Choose a valid option. Try again\n")
+    elif user == CPU:
+        print("It's a tie. Please play again.\n")
+    else:
+        print('\n{} ({}) : CPU ({})'.format(name, game[user], game[CPU]))
+        win = user + CPU
 
-    
-    if user_action == computer_action:
-        print(f"Both players selected {user_action}. It's a tie!")
-        continue
-    elif user_action == "rock":
-        if computer_action == "paper":
-            print(f"Rock smashes scissors! {player} win!")
-            quit()
-        else:
-            print(f"Paper covers rock! {player} lose.")
-            quit()
-    elif user_action == "paper":
-        if computer_action == "rock":
-            print(f"Paper covers rock! {player} win!")
-            quit()
-        else:
-            print(f"Scissors cuts paper! {player} lose.")
-            quit()
-    elif user_action == "scissors":
-        if computer_action == "paper":
-            print(f"Scissors cuts paper! {player} win!")
-            quit()
-        else:
-            print(f"Rock smashes scissors! {player} lose.")
-            quit()
-    elif user_action != possible_actions:
-        print(f"{user_action} not accepted.\nPlay again. Choose from the given words only.")
-        continue
+        if win in ['RS', 'PR', 'SP']:
+            print('{} beats {} \n\nWINNER: {}'.format(game[user], game[CPU], name))
+        elif win in ['SR', 'RP', 'PS']:
+            print('{} beats {} \n\nWINNER: CPU'.format(game[CPU], game[user]))
+
+        break
